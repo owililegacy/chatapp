@@ -71,8 +71,8 @@ chat-app/
 
 1. **Clone and setup the project:**
 ```bash
-git clone <repository-url>
-cd chat-app
+git clone https://github.com/owililegacy/chatapp.git
+cd chatapp
 ```
 
 2. **Install Python dependencies:**
@@ -92,6 +92,7 @@ npm install
 npm run start-server
 
 # Terminal 2: Build and watch for frontend changes
+# This is for development only
 npm run pack & npm run watch
 
 # Terminal 3: Start the Flask frontend

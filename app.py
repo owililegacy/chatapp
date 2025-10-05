@@ -4,17 +4,23 @@ HTTP front-end for the existing raw-TCP chat servers.
 Browser  ←→  http://localhost:8080  ←→  app.py  ←→  tcp://localhost:9001|9002
 """
 from flask import Flask, request, jsonify, send_from_directory, render_template
-import socket, json, threading, queue, time
+import socket
+import json
+import threading
+import queue
+import time
 
 app = Flask(__name__)
 TCP_SERVERS = [('localhost', 9001), ('localhost', 9002)]
 
 
 @app.route('/static/<path:filename>')
-def  serve_files(filename):
+def serve_files(filename):
     return send_from_directory('static', filename)
 
 # ---------- tiny TCP client -------------------------------------------------
+
+
 def tcp_send_recv(payload_dict):
     """Open TCP, send one message, return one reply (or None)."""
     raw_out = json.dumps(payload_dict).encode()
@@ -41,10 +47,13 @@ def tcp_send_recv(payload_dict):
 # ----------------------------------------------------------------------------
 
 # ---------- HTTP routes ------------------------------------------------------
+
+
 @app.route('/', methods=['GET'])
 def index():
     print("serving")
-    return  render_template('index.html')
+    return render_template('index.html')
+
 
 @app.route('/send', methods=['POST'])
 def send_msg():
@@ -54,6 +63,7 @@ def send_msg():
                    'type': 'chat', 'text': body.get('text', '')})
     return jsonify(status='ok')
 
+
 @app.route('/poll', methods=['GET'])
 def poll():
     """Very small long-poll: returns last chat line server echoed."""
@@ -61,6 +71,7 @@ def poll():
     resp = tcp_send_recv({'type': 'ping'})
     return jsonify(resp or {})
 # ----------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

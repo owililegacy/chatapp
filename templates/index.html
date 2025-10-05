@@ -1,75 +1,192 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>Chat</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {font-family: sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh;}
-    #log {flex: 1; overflow-y: auto; padding: 8px; background: #f5f5f5; white-space: pre-wrap;}
-    #box {display: flex; padding: 8px; background: #ddd;}
-    #msg {flex: 1; padding: 6px;}
-    #snd {margin-left: 6px; padding: 6px 12px;}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
   </style>
 </head>
-<div class="relative">
-  <div id="join-modal" class="relative translate-x-full top-5 right-4 bg-green-400 opacity-0">
-    <p id="message"></p>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="bg-indigo-600 text-white p-2 rounded-lg">
+        <i class="fas fa-comments text-lg"></i>
+      </div>
+      <h1 class="text-xl font-bold text-gray-800">Chat Application</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-2 text-gray-600">
+        <i class="fas fa-users"></i>
+        <span id="online-count">1</span>
+        <span>online</span>
+      </div>
+      <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+        <i class="fas fa-moon text-gray-700"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col md:flex-row p-4 gap-4 overflow-hidden">
+    <!-- Sidebar -->
+    <aside class="w-full md:w-64 bg-white rounded-xl shadow-sm p-4 flex flex-col">
+      <div class="mb-6">
+        <h2 class="font-semibold text-gray-700 mb-2">Active Users</h2>
+        <div id="user-list" class="space-y-2 max-h-60 overflow-y-auto">
+          <div class="flex items-center space-x-2 p-2 rounded-lg bg-blue-50">
+            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+            <span class="font-medium">You</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-auto">
+        <h2 class="font-semibold text-gray-700 mb-2">Settings</h2>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Sound Notifications</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="sound-toggle" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+            </label>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Show Timestamps</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="timestamp-toggle" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Chat Area -->
+    <section class="flex-1 flex flex-col bg-white rounded-xl shadow-sm overflow-hidden">
+      <!-- Chat Header -->
+      <div class="bg-indigo-600 text-white p-4">
+        <h2 class="font-semibold text-lg">General Chat</h2>
+        <p class="text-indigo-100 text-sm">Chat with everyone in the room</p>
+      </div>
+
+      <!-- Messages Container -->
+      <div id="messages-container" class="flex-1 p-4 overflow-y-auto bg-gray-50">
+        <div class="text-center text-gray-500 text-sm mb-4">
+          <p>Today</p>
+        </div>
+
+        <!-- Welcome message -->
+        <div class="message-enter flex justify-center mb-6">
+          <div class="bg-white rounded-xl shadow-sm p-4 max-w-md text-center">
+            <div class="text-indigo-600 mb-2">
+              <i class="fas fa-comments text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-gray-800">Welcome to the Chat!</h3>
+            <p class="text-gray-600 text-sm mt-1">Start a conversation by typing a message below.</p>
+          </div>
+        </div>
+
+        <!-- Sample messages -->
+        <div class="message-enter flex justify-start mb-4">
+          <div class="flex items-start space-x-2 max-w-xs md:max-w-md">
+            <div class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-sm font-semibold">A</div>
+            <div>
+              <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
+                <p class="text-gray-800">Hey everyone! How's it going?</p>
+              </div>
+              <div class="flex items-center space-x-1 mt-1 text-xs text-gray-500">
+                <span>Alex</span>
+                <span>•</span>
+                <span>10:24 AM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="message-enter flex justify-end mb-4">
+          <div class="flex items-start space-x-2 max-w-xs md:max-w-md flex-row-reverse">
+            <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white text-sm font-semibold">Y</div>
+            <div>
+              <div class="bg-indigo-500 text-white rounded-2xl rounded-tr-none px-4 py-3">
+                <p>Hi Alex! Doing great, thanks for asking. How about you?</p>
+              </div>
+              <div class="flex items-center space-x-1 mt-1 text-xs text-gray-500 justify-end">
+                <span>You</span>
+                <span>•</span>
+                <span>10:25 AM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div id="typing-indicator" class="hidden flex justify-start mb-4">
+          <div class="flex items-start space-x-2">
+            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-white text-sm font-semibold">?</div>
+            <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
+              <div class="typing-indicator">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Input -->
+      <div class="p-4 border-t bg-white">
+        <div class="flex space-x-2">
+          <input type="text" id="username-input" placeholder="Your name" class="flex-1 max-w-32 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" value="You">
+          <div class="flex-1 flex space-x-2">
+            <input type="text" id="message-input" placeholder="Type your message..." class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+            <button id="send-button" class="bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <div class="flex space-x-2">
+            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-lg transition-colors">
+              <i class="fas fa-smile"></i>
+            </button>
+            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-lg transition-colors">
+              <i class="fas fa-paperclip"></i>
+            </button>
+            <button class="p-2 text-gray-500 hover:text-indigo-600 rounded-lg transition-colors">
+              <i class="fas fa-image"></i>
+            </button>
+          </div>
+          <div class="text-xs text-gray-500">
+            <span id="char-count">0</span>/500
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Notification -->
+  <div id="notification" class="fixed top-4 right-4 bg-white rounded-xl shadow-lg p-4 max-w-sm hidden notification-enter z-50 border-l-4 border-green-500">
+    <div class="flex items-start space-x-3">
+      <div class="bg-green-100 text-green-600 p-2 rounded-full">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <div class="flex-1">
+        <h4 class="font-semibold text-gray-800">User Joined</h4>
+        <p id="notification-message" class="text-gray-600 text-sm mt-1">A new user has joined the chat</p>
+      </div>
+      <button id="close-notification" class="text-gray-400 hover:text-gray-600">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
   </div>
-</div>
-<body>
-  <div id="log"></div>
-  <div id="box">
-    <input id="user" placeholder="Username" size="10">
-    <input id="msg"  placeholder="Type message…">
-    <button id="snd">Send</button>
-  </div>
 
-  <script>
-    const log = document.getElementById('log');
-    const user = document.getElementById('user');
-    const msg  = document.getElementById('msg');
-    const snd  = document.getElementById('snd');
-
-    function add(line){ log.textContent += line + '\n'; log.scrollTop = log.scrollHeight; }
-
-    snd.onclick = async () => {
-      const u = user.value || 'anon';
-      const m = msg.value.trim();
-      if(!m) return;
-      await fetch('/send', {method:'POST', headers:{'Content-Type':'application/json'},
-                            body:JSON.stringify({username:u, text:m})});
-      msg.value = '';
-    };
-
-    const joinModal = document.getElementById("join-modal");
-
-    function showJoinModal(message){
-        joinModal.getElementById("message").textContent = message? message : "New user Joined"
-        joinModal.classList.remove("translate-x-full", "opacity-0")
-        joinModal.classList.add("translate-x-0", "opacity-100")
-    }
-    
-    function hideoinModal(){
-        joinModal.classList.remove("translate-x-0", "opacity-100")
-
-        joinModal.classList.add("translate-x-full", "opacity-0")
-    }
-
-    async function poll(){
-      try{
-        const r = await fetch('/poll');
-        const j = await r.json();
-        if(j.text) add(j.text);
-        //console.log(j)
-        showJoinModal(j.text)
-        setTimeout(()=>{
-          hideoinModal()
-        }, 1000)
-      }catch(e){}
-      setTimeout(poll, 55000);   // poll every second
-    }
-    poll();
-  </script>
+  <script src="static/js/chatHandler.js"></script>
 </body>
 </html>

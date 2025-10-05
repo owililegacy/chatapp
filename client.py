@@ -3,11 +3,15 @@ Chat client – auto-reconnects to any live server.
 Usage:  python client.py 9001
         python client.py 9002
 """
-import socket, threading, sys, time
-from common import *
+import socket
+import threading
+import sys
+import time
+from common import send_msg, tcp_send_recv
 
 SERVERS = [('localhost', 9001), ('localhost', 9002)]
 USERNAME = input('Enter username: ') or 'anon'
+
 
 def connect_any_server():
     for host, port in SERVERS:
@@ -21,13 +25,15 @@ def connect_any_server():
     time.sleep(3)
     return connect_any_server()
 
+
 def recv_loop(sock):
     while True:
-        msg = recv_msg(sock)
+        msg = tcp_send_recv(sock)
         if not msg:
             print('\n[Lost server – reconnecting…]')
             return
-        print(msg['text']) # type: ignore
+        print(msg['text'])  # type: ignore
+
 
 def main():
     while True:
@@ -41,6 +47,7 @@ def main():
                 send_msg(sock, {'type': 'chat', 'text': txt})
             except (EOFError, KeyboardInterrupt):
                 return
+
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.scrollbar-hide {
+    /* Hide scrollbar for Chrome, Safari, and Edge */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    overflow: -moz-scrollbars-none; /* Older Firefox */
+    overflow-y: scroll; /* Add this to ensure the content is scrollable */
+    &::-webkit-scrollbar {
+        display: none;  /* Hide scrollbar for Chrome, Safari, and Edge */
+    }
+}
+
+.pulse {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pulse:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-hover {
+    display: inline-block;
+}
+
+.pulse-hover:hover {
+    animation: pulse 1s infinite;
+}
+/* Reset default scrollbar */
+/* Reset default scrollbar */
+.scrollbar-custom-v1::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Light theme scrollbar */
+.scrollbar-custom-v1::-webkit-scrollbar-track {
+    background:#2c2c2c;
+    border-radius: 4px;
+    opacity:0.5;
+}
+
+.scrollbar-custom-v1.dark ::-webkit-scrollbar-track {
+    background:#24486b;
+    border-radius: 4px;
+    opacity:0.5;
+}
+
+.scrollbar-custom-v1::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #00aa7f, #5500ff, #00aaff);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.scrollbar-custom-v1::-webkit-scrollbar-thumb:hover {
+    background: #555500;
+}
+
+.scrollbar-custom-v1.dark ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+}
+
+.scrollbar-custom-v1::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, #aa55ff, #aaaaff, #ff55ff);
+}
+
+/* Optional: Add transitions for more natural feel */
+.scroll-smooth:-webkit-scrollbar {
+    scroll-behavior: smooth;
+}
+
+.scrollbar-rounded::-webkit-scrollbar-thumb {
+    border-radius: 9999px; /* fully rounded */
+}
+
+/*Custom scrollbar*/
+.scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-radius: 4px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #0b0b0b;
+}
+.scrollbar-custom.dark::-webkit-scrollbar-track {
+    background: #181818;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #00aa7f, #aaffff, #00aaff);
+}
+
+.scrollbar-custom.dark::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #00557f, #aaffff, #0089ce);
+}
+
+/* Exclude elements with .scrollbar-default */
+.scrollbar-default::-webkit-scrollbar {
+    all: unset;
+}
+
+/* Simulate a placeholder on the contenteditable div */
+#userInput:empty:before {
+content: attr(data-placeholder);
+color: #9CA3AF;
+}
+/* Always ensure an extra empty row at the bottom */
+#userInput::after {
+content: "\A"; /* Inserts a newline */
+white-space: pre;
+display: block;
+visibility: hidden;
+height: 2.4em; /* Adjust this value to match the height of an empty row */
+}
+
+
+@keyframes modalEnter {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalExit {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.animate-enter {
+    animation: modalEnter 0.4s ease-out forwards;
+}
+
+.animate-exit {
+    animation: modalExit 0.3s ease-in forwards;
+}
+
+@keyframes singleRipple {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+.ripple-single-1 {
+    position: absolute;
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #ff8a65, #ff7043) 1;
+    width: 80%;
+    height: 80%;
+    animation: singleRipple 1.8s infinite;
+    pointer-events: none;
+}
+
+.ripple-single-2 {
+    position: absolute;
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #ff8a65, #55aaff) 1;
+    width: 80%;
+    height: 80%;
+    animation: singleRipple 1.8s infinite;
+    pointer-events: none;
+}
+.ripple-single-3 {
+    position: absolute;
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #55ff7f, #ff7043) 1;
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    animation: singleRipple 1.8s infinite;
+    pointer-events: none;
+}
+.ripple-single-1 {
+    animation-delay: 0s;
+}
+.ripple-single-2 {
+    animation-delay: 0.6s;
+}
+.ripple-single-3 {
+    animation-delay: 1.2s;
+}
+
+.glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.dark-glass {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+.message-enter {
+    animation: messageEnter 0.3s ease-out;
+}
+
+@keyframes messageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notification-enter {
+    animation: notificationEnter 0.5s ease-out;
+}
+
+.notification-exit {
+    animation: notificationExit 0.5s ease-out forwards;
+}
+
+@keyframes notificationEnter {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes notificationExit {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+.typing-indicator {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 20px;
+}
+
+.typing-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #9ca3af;
+    position: absolute;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+    left: 0;
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+    left: 12px;
+    animation-delay: -0.16s;
+}
+
+.typing-dot:nth-child(3) {
+    left: 24px;
+    animation-delay: 0;
+}
+
+@keyframes typing {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

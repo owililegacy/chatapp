@@ -5,6 +5,7 @@
     "description": "File Management Suite",
     "scripts": {
         "start": "python app.py",
+        "start-server": "python server.py 8001 8002",
         "watch": "tailwindcss -i ./static/css/config.css -o ./static/css/styles.css --watch --minify"
     },
     "eslintConfig": {
@@ -26,20 +27,18 @@
         ]
     },
     "keywords": [
-        "filemac",
-        "file_conversion"
+        "distributed system",
+        "chat app"
     ],
     "bugs": {
-        "url": "https://github.com/skye-cyber/FileMAC/issues"
+        "url": "https://github.com/owililegacy/chatapp/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/skye-cyber/FileMAC.git"
+        "url": "git+https://github.com/owililegacy/chatapp.git"
     },
     "license": "GPL",
     "author": "skye",
-    "main": "index.js",
     "dependencies": {
-        "pretier": "^0.0.1"
     }
 }

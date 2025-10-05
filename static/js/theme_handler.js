@@ -23,5 +23,7 @@ function toggleTheme() {
     }
 }
 
+themeToggle.addEventListener('click', toggleTheme);
+
 //Initialize theme handler
 toggleTheme()

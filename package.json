@@ -4,8 +4,9 @@
     "private": true,
     "description": "File Management Suite",
     "scripts": {
+        "pack": "npx webpack --config webpack.config.js --watch",
         "start": "python app.py",
-        "start-server": "python server.py 8001 8002",
+        "start-server": "python server.py 9001 9002",
         "watch": "tailwindcss -i ./static/css/config.css -o ./static/css/styles.css --watch --minify"
     },
     "eslintConfig": {
@@ -39,6 +40,32 @@
     },
     "license": "GPL",
     "author": "skye",
+    "devDependencies": {
+        "assert": "^2.1.0",
+        "babel-loader": "^9.2.1",
+        "browser": "^0.2.6",
+        "browserify-fs": "^1.0.0",
+        "browserify-zlib": "^0.2.0",
+        "buffer": "^6.0.3",
+        "child-process-promise": "^2.1.3",
+        "compression-webpack-plugin": "^11.1.0",
+        "copy-webpack-plugin": "^13.0.0",
+        "crypto-browserify": "^3.12.1",
+        "css-loader": "^7.1.2",
+        "fs": "^0.0.1-security",
+        "https-browserify": "^1.0.0",
+        "os-browserify": "^0.3.0",
+        "path-browserify": "^1.0.1",
+        "process": "^0.11.10",
+        "socket.io-client": "^4.8.1",
+        "stream-browserify": "^3.0.0",
+        "stream-http": "^3.2.0",
+        "style-loader": "^4.0.0",
+        "url": "^0.11.4",
+        "util": "^0.12.5",
+        "vm-browserify": "^1.1.2"
+    },
     "dependencies": {
+        "socket.io": "^4.8.1"
     }
 }

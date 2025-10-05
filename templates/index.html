@@ -10,14 +10,14 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
   </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 h-screen flex flex-col">
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 h-screen w-screen flex flex-col overflow-x-hidden">
   <!-- Header -->
-  <header class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
-    <div class="flex items-center space-x-3">
+  <header class="bg-white shadow-sm py-4 px-1 md:px-6 flex justify-between items-center">
+    <div class="flex items-center space-x-1 md:space-x-3">
       <div class="bg-indigo-600 text-white p-2 rounded-lg">
-        <i class="fas fa-comments text-lg"></i>
+        <i class="fas fa-comments text-lg h-4 w-4 md:h-5 md:w-5"></i>
       </div>
-      <h1 class="text-xl font-bold text-gray-800">Chat Application</h1>
+      <h1 class="flex gap-1 text-md md:text-xl font-bold text-gray-800">Chat <span class="hidden md:flex">Application</span><span class="flex md:hidden">App</span></h1>
     </div>
     <div class="flex items-center space-x-4">
       <div class="flex items-center space-x-2 text-gray-600">
@@ -32,9 +32,9 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 flex flex-col md:flex-row p-4 gap-4 overflow-hidden">
+  <main class="flex-1 flex flex-col md:flex-row px-1 py-0.5 md:p-4 gap-4 overflow-hidden">
     <!-- Sidebar -->
-    <aside class="w-full md:w-64 bg-white rounded-xl shadow-sm p-4 flex flex-col">
+    <aside class="hidden md:block w-full md:w-64 bg-white rounded-xl shadow-sm p-4 flex flex-col">
       <div class="mb-6">
         <h2 class="font-semibold text-gray-700 mb-2">Active Users</h2>
         <div id="user-list" class="space-y-2 max-h-60 overflow-y-auto">
@@ -70,14 +70,14 @@
     <!-- Chat Area -->
     <section class="flex-1 flex flex-col bg-white rounded-xl shadow-sm overflow-hidden">
       <!-- Chat Header -->
-      <div class="bg-indigo-600 text-white p-4">
+      <div class="bg-indigo-600 text-white p-2 md:p-4">
         <h2 class="font-semibold text-lg">General Chat</h2>
         <p class="text-indigo-100 text-sm">Chat with everyone in the room</p>
       </div>
 
       <!-- Messages Container -->
-      <div id="messages-container" class="flex-1 p-4 overflow-y-auto bg-gray-50">
-        <div class="text-center text-gray-500 text-sm mb-4">
+      <div id="messages-container" class="relative flex-1 p-4 overflow-y-auto bg-gray-50">
+        <div class="text-center text-gray-500 text-sm mb-6">
           <p>Today</p>
         </div>
 
@@ -91,42 +91,8 @@
             <p class="text-gray-600 text-sm mt-1">Start a conversation by typing a message below.</p>
           </div>
         </div>
-
-        <!-- Sample messages -->
-        <div class="message-enter flex justify-start mb-4">
-          <div class="flex items-start space-x-2 max-w-xs md:max-w-md">
-            <div class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-sm font-semibold">A</div>
-            <div>
-              <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-                <p class="text-gray-800">Hey everyone! How's it going?</p>
-              </div>
-              <div class="flex items-center space-x-1 mt-1 text-xs text-gray-500">
-                <span>Alex</span>
-                <span>•</span>
-                <span>10:24 AM</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="message-enter flex justify-end mb-4">
-          <div class="flex items-start space-x-2 max-w-xs md:max-w-md flex-row-reverse">
-            <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white text-sm font-semibold">Y</div>
-            <div>
-              <div class="bg-indigo-500 text-white rounded-2xl rounded-tr-none px-4 py-3">
-                <p>Hi Alex! Doing great, thanks for asking. How about you?</p>
-              </div>
-              <div class="flex items-center space-x-1 mt-1 text-xs text-gray-500 justify-end">
-                <span>You</span>
-                <span>•</span>
-                <span>10:25 AM</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Typing indicator -->
-        <div id="typing-indicator" class="hidden flex justify-start mb-4">
+        <div id="typing-indicator" class="hidden absolute bottom-1 left-2 flex justify-start mb-1">
           <div class="flex items-start space-x-2">
             <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-white text-sm font-semibold">?</div>
             <div class="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
@@ -141,12 +107,12 @@
       </div>
 
       <!-- Message Input -->
-      <div class="p-4 border-t bg-white">
+      <div class="p-2 md:p-4 border-t bg-white max-w-full">
         <div class="flex space-x-2">
-          <input type="text" id="username-input" placeholder="Your name" class="flex-1 max-w-32 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" value="You">
+          <input type="text" id="username-input" placeholder="Your name" class="flex-1 max-w-12 md:max-w-32 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" value="You">
           <div class="flex-1 flex space-x-2">
             <input type="text" id="message-input" placeholder="Type your message..." class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-            <button id="send-button" class="bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <button id="send-button" class="bg-indigo-600 text-white px-2 md:px-6 py-0 md:py-3 rounded-xl hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               <i class="fas fa-paper-plane"></i>
             </button>
           </div>

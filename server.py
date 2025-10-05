@@ -28,7 +28,7 @@ class MessageType(Enum):
 @dataclass
 class ChatMessage:
     type: MessageType
-    username: str = "anon"
+    username: str = "Anonymous"
     text: str = ""
     timestamp: float = None
     source_port: int = None
@@ -85,7 +85,7 @@ class ChatClient:
         """Close client connection."""
         try:
             self.socket.close()
-        except:
+        except Exception:
             pass
         self.connected = False
 

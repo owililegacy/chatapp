@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    for (const item of [ "connector", "base", "theme_handler", "utils"]) {
+    for (const item of [ "pkd_connector", "base", "theme_handler", "utils"]) {
         addScripts(item);
     }
 
@@ -12,5 +12,5 @@ function addScripts(script) {
     script_el.src = `static/js/${script}.js`;
     script_el.async = true; // Optional: load the script asynchronously
     document.body.appendChild(script_el);
-    console.log(`Added ${script} script`);
+    //console.log(`Added ${script} script`);
 }

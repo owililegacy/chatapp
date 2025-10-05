@@ -1,7 +1,6 @@
 // DOM Elements
 const messagesContainer = document.getElementById('messages-container');
 const messageInput = document.getElementById('message-input');
-const usernameInput = document.getElementById('username-input');
 const sendButton = document.getElementById('send-button');
 const charCount = document.getElementById('char-count');
 const notification = document.getElementById('notification');
@@ -10,7 +9,6 @@ const closeNotification = document.getElementById('close-notification');
 const soundToggle = document.getElementById('sound-toggle');
 const timestampToggle = document.getElementById('timestamp-toggle');
 const typingIndicator = document.getElementById('typing-indicator');
-const userList = document.getElementById('user-list');
 const onlineCount = document.getElementById('online-count');
 
 let typingTimer;
@@ -19,12 +17,12 @@ let typingTimer;
 updateCharCount();
 
 // Event Listeners
-sendButton.addEventListener('click', sendMessage);
+sendButton.addEventListener('click', window.sendMessage);
 
 messageInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault;
-        sendMessage(message, username);
+        window.sendMessage();
     }
 });
 
@@ -40,9 +38,7 @@ messageInput.addEventListener('input', function() {
     }, 2000);
 });
 
-closeNotification.addEventListener('click', hideNotification);
-
-themeToggle.addEventListener('click', toggleTheme);
+closeNotification.addEventListener('click', window.hideNotification);
 
 // Character count update
 function updateCharCount() {
@@ -103,5 +99,5 @@ function addMessage(username, text, isOwnMessage = false, isPending = false) {
 
 // Simulate initial notification
 setTimeout(() => {
-    showNotification('Welcome to the chat! Start connecting with others.');
+    window.showNotification('Welcome to the chat! Start connecting with others.');
 }, 1000);

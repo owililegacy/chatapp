@@ -74,3 +74,8 @@ function hideNotification() {
         notification.classList.remove('notification-exit');
     }, 500);
 }
+
+window.hideNotification = hideNotification
+window.showNotification = showNotification
+window.playNotificationSound = playNotificationSound
+window.escapeHtml = escapeHtml
